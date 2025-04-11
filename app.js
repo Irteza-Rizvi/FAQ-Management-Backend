@@ -16,6 +16,12 @@ const {
   deleteFaq,
 } = require('../controllers/faqController');
 
+const authRoutes = require('./routes/authRoutes');
+const faqRoutes = require('./routes/faqRoutes');
+
+app.use('/api', authRoutes);
+app.use('/api', faqRoutes);
+
 //loading .env
 dotenv.config();
 
