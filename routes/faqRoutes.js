@@ -13,6 +13,15 @@ router.put('/update-faq/:id', protect, updateFaq);
 router.delete('/delete-faq/:id', protect, deleteFaq);
 
 //GET /faq
-router.get('/faqs', getFaqs);
+router.get('/', async (req, res) => {
+  try {
+    const faqs = await Faq.find();
+    res.status(200).json(faqs);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: 'Error fetching FAQs', error: err.message });
+  }
+});
 
 module.exports = router;
