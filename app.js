@@ -9,12 +9,12 @@ const bodyParser = require('body-parser');
 //Connection with mongoDB database
 const connectDB = require('./config/db');
 //import the function from controllers
-const {
+/*const {
   addFaq,
   getFaqs,
   updateFaq,
   deleteFaq,
-} = require('../controllers/faqController');
+} = require('../controllers/faqController');*/
 
 const authRoutes = require('./routes/authRoutes');
 const faqRoutes = require('./routes/faqRoutes');
@@ -42,7 +42,7 @@ app.use(bodyParser.json());
 app.use('/api', require('./routes/faqRoutes'));
 
 //Server Start
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

@@ -11,6 +11,8 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
   },
 });
 
@@ -20,5 +22,10 @@ userSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, 10);
   next();
 });
+
+//compare hashed password
+userSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
 module.exports = mongoose.model('User', userSchema);

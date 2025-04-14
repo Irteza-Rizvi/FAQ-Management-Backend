@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { addFaq, getFaqs } = require('../controllers/faqController');
+const {
+  addFaq,
+  getFaqs,
+  updateFaq,
+  deleteFaq,
+} = require('../controllers/faqController');
 const protect = require('../middleware/authMiddleware');
 
 //POST / add-faq
