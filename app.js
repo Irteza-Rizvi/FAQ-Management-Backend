@@ -8,13 +8,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 //Connection with mongoDB database
 const connectDB = require('./config/db');
-//import the function from controllers
-/*const {
-  addFaq,
-  getFaqs,
-  updateFaq,
-  deleteFaq,
-} = require('../controllers/faqController');*/
+
+const rateLimit = require('express-rate-limit');
 
 const authRoutes = require('./routes/authRoutes');
 const faqRoutes = require('./routes/faqRoutes');
@@ -46,3 +41,12 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+// rate limiting to prevent brute-force attacks, especially on authentication routes.
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  messge: 'Too many request from this IP, Please try again later.',
+});
+//apply to all api routes
+app.use('/api', limiter);
