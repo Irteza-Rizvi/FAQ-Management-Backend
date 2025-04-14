@@ -7,15 +7,16 @@ const {
   deleteFaq,
 } = require('../controllers/faqController');
 const protect = require('../middleware/authMiddleware');
+const checkRole = require('../middleware/roleMiddleware');
 
 //POST / add-faq
-router.post('/add-faq', protect, addFaq);
+router.post('/add-faq', protect, checkRole('admin'), addFaq);
 
 //UPDATE FAQ
-router.put('/update-faq/:id', protect, updateFaq);
+router.put('/update-faq/:id', protect, checkRole('admin'), updateFaq);
 
 //DELETE FAQ
-router.delete('/delete-faq/:id', protect, deleteFaq);
+router.delete('/delete-faq/:id', protect, checkRole('admin'), deleteFaq);
 
 //GET /faq
 router.get('/', async (req, res) => {
